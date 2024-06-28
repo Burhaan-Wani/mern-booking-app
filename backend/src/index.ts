@@ -2,16 +2,26 @@ import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import { v2 as cloudinary } from "cloudinary";
 
 import connectDB from "./db//connectDB";
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
+import hotelRoutes from "./routes/hotel.routes";
 import { AppError } from "./utils/types";
 import path from "path";
 
 dotenv.config({
     path: "./.env",
 });
+
+// CLOUDINARY Configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 const app = express();
 
 // Middlewares
@@ -29,7 +39,11 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 // Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/hotels", hotelRoutes);
 
+app.get("*", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
 // Global Error Handler
 app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
     // console.log(err);
