@@ -1,7 +1,21 @@
 import { RegisterFormData } from "./pages/Register";
 import { SigninFormData } from "./pages/Signin";
-import { HotelType } from "../../backend/src/utils/types";
 
+type HotelType = {
+    _id: string;
+    userId: string;
+    name: string;
+    city: string;
+    country: string;
+    description: string;
+    type: string;
+    adultCount: number;
+    childCount: number;
+    facilities: string[];
+    pricePerNight: number;
+    starRating: number;
+    imageUrls: string[];
+};
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export const register = async (formData: RegisterFormData) => {
