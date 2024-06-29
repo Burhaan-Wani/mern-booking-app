@@ -60,25 +60,32 @@ export const getHotel = catchAsync(
     }
 );
 
+// update hotel
 export const updateHotel = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-        let updateHotel: HotelType = req.body;
-
-        const hotel = await Hotel.findByIdAndUpdate(
-            req.params.hotelId,
-            updateHotel,
-            { new: true, runValidators: true }
+        const updatedHotel: HotelType = req.body;
+        const hotel = await Hotel.findOneAndUpdate(
+            {
+                _id: req.params.hotelId,
+                userId: req.userId,
+            },
+            updatedHotel,
+            { new: true }
         );
+
         if (!hotel) {
             return next(new AppError("Hotel not found", 404));
         }
+
         const files = req.files as Express.Multer.File[];
         const updatedImageUrls = await uploadImages(files);
-        updateHotel.imageUrls = [
+
+        hotel.imageUrls = [
             ...updatedImageUrls,
-            ...(updateHotel.imageUrls || []),
+            ...(updatedHotel.imageUrls || []),
         ];
 
+        await hotel.save();
         res.status(201).json({
             status: "success",
             hotel,

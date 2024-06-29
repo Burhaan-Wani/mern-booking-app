@@ -8,8 +8,12 @@ import {
 import { upload } from "../middlewares/multer";
 import verifyToken from "../middlewares/authMiddleware";
 import { body } from "express-validator";
+import searchRoutes from "./searchHotels.routes";
 
 const router = express.Router();
+
+// nesting routes
+router.use("/search", searchRoutes);
 
 router.post(
     "/",
