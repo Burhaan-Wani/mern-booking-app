@@ -1,8 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../utils/catchAsync";
 import { v2 as cloudinary } from "cloudinary";
-import Hotel, { HotelType } from "../models/hotel.model";
+import Hotel from "../models/hotel.model";
+import { HotelType } from "../utils/types";
+import AppError from "../utils/appError";
 
+// createHotel
 export const createHotel = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         const imageFiles = req.files as Express.Multer.File[];
@@ -28,6 +31,22 @@ export const createHotel = catchAsync(
         res.status(201).json({
             status: "success",
             hotel,
+        });
+    }
+);
+
+// getHotels
+export const getHotels = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const hotels = await Hotel.find({ userId: req.userId });
+        if (!hotels) {
+            return next(
+                new AppError("You have not created any hotels yet.", 404)
+            );
+        }
+        res.status(200).json({
+            status: "success",
+            hotels,
         });
     }
 );

@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Signin from "./pages/Signin";
 import { useAppContext } from "./hooks/useAppContext";
 import AddHotel from "./pages/AddHotel";
+import MyHotels from "./pages/MyHotels";
 
 function App() {
     const { isLoggedIn } = useAppContext();
@@ -16,7 +17,16 @@ function App() {
                         <Route path="register" element={<Register />} />
                         <Route path="sign-in" element={<Signin />} />
                         {isLoggedIn && (
-                            <Route path="add-hotel" element={<AddHotel />} />
+                            <>
+                                <Route
+                                    path="add-hotel"
+                                    element={<AddHotel />}
+                                />
+                                <Route
+                                    path="my-hotels"
+                                    element={<MyHotels />}
+                                />
+                            </>
                         )}
                     </Route>
                 </Routes>
