@@ -22,6 +22,14 @@ type GetHotelsType = {
     hotels: HotelType[];
 };
 
+type HotelSearchResponse = {
+    data: HotelType[];
+    pagination: {
+        total: number;
+        page: number;
+        pages: number;
+    };
+};
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export const register = async (formData: RegisterFormData) => {
@@ -130,6 +138,36 @@ export const updateMyHotelById = async (hotelFormData: FormData) => {
     const data = await response.json();
     if (!response.ok) {
         throw new Error("Failed to update Hotel");
+    }
+    return data;
+};
+
+type SearchParams = {
+    destination?: string;
+    checkIn?: string;
+    checkOut?: string;
+    adultCount?: string;
+    childCount?: string;
+    page?: string;
+};
+
+export const searchHotels = async (
+    searchParams: SearchParams
+): Promise<HotelSearchResponse> => {
+    const queryParams = new URLSearchParams();
+    queryParams.append("destination", searchParams.destination || "");
+    queryParams.append("checkIn", searchParams.checkIn || "");
+    queryParams.append("checkOut", searchParams.checkOut || "");
+    queryParams.append("adultCount", searchParams.adultCount || "");
+    queryParams.append("childCount", searchParams.childCount || "");
+    queryParams.append("page", searchParams.page || "");
+
+    const response = await fetch(
+        `${API_BASE_URL}/api/v1/hotels/search?${queryParams}`
+    );
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error("Error while fetching hotels");
     }
     return data;
 };

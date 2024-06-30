@@ -6,6 +6,7 @@ import { useAppContext } from "./hooks/useAppContext";
 import AddHotel from "./pages/AddHotel";
 import MyHotels from "./pages/MyHotels";
 import EditHotel from "./pages/EditHotel";
+import Search from "./pages/Search";
 
 function App() {
     const { isLoggedIn } = useAppContext();
@@ -17,6 +18,7 @@ function App() {
                         <Route index element={<p>home page</p>} />
                         <Route path="register" element={<Register />} />
                         <Route path="sign-in" element={<Signin />} />
+                        <Route path="search" element={<Search />} />
                         {isLoggedIn && (
                             <>
                                 <Route
