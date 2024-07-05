@@ -3,6 +3,7 @@ import {
     createHotel,
     getHotel,
     getHotels,
+    hotel,
     updateHotel,
 } from "../controllers/hotelControllers";
 import { upload } from "../middlewares/multer";
@@ -37,6 +38,7 @@ router.post(
     createHotel
 );
 
+router.get("/detail/:hotelId", hotel);
 router.get("/", verifyToken, getHotels);
 router.get("/:hotelId", verifyToken, getHotel);
 router.put("/:hotelId", verifyToken, upload.array("imageFiles"), updateHotel);

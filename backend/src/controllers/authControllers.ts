@@ -83,16 +83,18 @@ export const login = catchAsync(
     }
 );
 
-export const logout = catchAsync(async (req, res, next) => {
-    res.status(200)
-        .cookie("auth_token", "", {
-            expires: new Date(0),
-        })
-        .json({
-            status: "success",
-            message: "Logout Successfully",
-        });
-});
+export const logout = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        res.status(200)
+            .cookie("auth_token", "", {
+                expires: new Date(0),
+            })
+            .json({
+                status: "success",
+                message: "Logout Successfully",
+            });
+    }
+);
 
 export const verifyTokenResponse = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {

@@ -126,6 +126,22 @@ export const getHotelById = async (hotelId: string): Promise<HotelType> => {
     return data.hotel;
 };
 
+export const singleHotelById = async (hotelId: string): Promise<HotelType> => {
+    const response = await fetch(
+        `${API_BASE_URL}/api/v1/hotels/detail/${hotelId}`,
+        {
+            credentials: "include",
+        }
+    );
+
+    const data = await response.json();
+    console.log(data);
+    if (!response.ok) {
+        throw new Error("Error while fetching hotel");
+    }
+    return data.hotel;
+};
+
 export const updateMyHotelById = async (hotelFormData: FormData) => {
     const response = await fetch(
         `${API_BASE_URL}/api/v1/hotels/${hotelFormData.get("hotelId")}`,

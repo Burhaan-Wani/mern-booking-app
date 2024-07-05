@@ -45,11 +45,26 @@ export const getHotels = catchAsync(
     }
 );
 
-// Edit hotel
+// Get hotel for signed user
 export const getHotel = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         const id = req.params.hotelId;
         const hotel = await Hotel.findOne({ _id: id, userId: req.userId });
+        if (!hotel) {
+            return next(new AppError("Hotel not found", 404));
+        }
+        res.status(200).json({
+            status: "success",
+            hotel,
+        });
+    }
+);
+
+// get hotel
+export const hotel = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const id = req.params.hotelId;
+        const hotel = await Hotel.findById(id);
         if (!hotel) {
             return next(new AppError("Hotel not found", 404));
         }

@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
+import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -9,7 +10,6 @@ import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import hotelRoutes from "./routes/hotel.routes";
 import { AppError } from "./utils/types";
-import path from "path";
 
 dotenv.config({
     path: "./.env",

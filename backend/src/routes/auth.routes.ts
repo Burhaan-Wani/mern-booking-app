@@ -36,7 +36,7 @@ router.post(
     ],
     login
 );
-router.get("/validate-token", verifyToken, verifyTokenResponse);
 router.post("/logout", logout);
+router.get("/validate-token", verifyToken, verifyTokenResponse);
 
 export default router;
