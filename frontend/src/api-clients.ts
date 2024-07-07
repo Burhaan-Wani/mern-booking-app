@@ -30,7 +30,27 @@ type HotelSearchResponse = {
         pages: number;
     };
 };
+
+export type UserType = {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string | undefined;
+};
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
+export const getchCurrentUser = async (): Promise<UserType> => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/users/me`, {
+        credentials: "include",
+    });
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error("Error while fetching user");
+    }
+    return data.user;
+};
 
 export const register = async (formData: RegisterFormData) => {
     const response = await fetch(`${API_BASE_URL}/api/v1/auth/register`, {
@@ -135,7 +155,6 @@ export const singleHotelById = async (hotelId: string): Promise<HotelType> => {
     );
 
     const data = await response.json();
-    console.log(data);
     if (!response.ok) {
         throw new Error("Error while fetching hotel");
     }

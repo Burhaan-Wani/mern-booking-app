@@ -23,7 +23,7 @@ export default function Signin() {
         onSuccess: async () => {
             showToast({ message: "Login Successful", type: "SUCCESS" });
             queryClient.invalidateQueries({ queryKey: ["validateToken"] });
-            navigate(location.state.from.pathname || "/");
+            navigate(location.state?.from?.pathname || "/");
         },
         onError: (error: Error) => {
             showToast({ message: error.message, type: "ERROR" });

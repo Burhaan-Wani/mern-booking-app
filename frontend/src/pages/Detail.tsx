@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import * as apiClient from "../api-clients";
 import { AiFillStar } from "react-icons/ai";
 import GuestForm from "../forms/GuestInfoForm/GuestForm";
+import React from "react";
 
 export default function Detail() {
     const { hotelId } = useParams();
@@ -12,7 +13,6 @@ export default function Detail() {
         enabled: !!hotelId,
     });
 
-    console.log(hotel);
     // display empty fragment while hotel data is being loaded
     if (!hotel) {
         return <>Loading...</>;
@@ -23,15 +23,17 @@ export default function Detail() {
                 <span className="flex">
                     {Array.from({
                         length: hotel?.starRating,
-                    }).map(() => (
-                        <AiFillStar className="fill-yellow-400" />
+                    }).map((_, i) => (
+                        <React.Fragment key={i}>
+                            <AiFillStar className="fill-yellow-400" />
+                        </React.Fragment>
                     ))}
                 </span>
                 <h1 className="text-3xl font-bold">{hotel.name}</h1>
             </div>
             <div className="grid grcol1 lg:grid-cols-3 gap-4">
-                {hotel.imageUrls.map((image) => (
-                    <div className="h-[300px]">
+                {hotel.imageUrls.map((image, i) => (
+                    <div key={i} className="h-[300px]">
                         <img
                             src={image}
                             alt={hotel.name}
@@ -41,8 +43,11 @@ export default function Detail() {
                 ))}
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
-                {hotel.facilities.map((facility) => (
-                    <div className="border border-slate-300 rounded-sm  p-3">
+                {hotel.facilities.map((facility, i) => (
+                    <div
+                        key={i}
+                        className="border border-slate-300 rounded-sm  p-3"
+                    >
                         {facility}
                     </div>
                 ))}
