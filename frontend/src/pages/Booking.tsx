@@ -31,18 +31,27 @@ export default function Booking() {
         }
     }, [search.checkOut, search.checkIn]);
 
+<<<<<<< HEAD
     if (!hotel) {
         return <></>;
     }
     return (
         <div className="grid md:grid-cols-[1fr_2fr] gap-3">
+=======
+    return (
+        <div className="grid md:grid-cols-[1fr_2fr]">
+>>>>>>> b11a417cb1a310f08142f4eaa10d3e290d64efbf
             <BookingDetailsSummary
                 checkIn={search.checkIn}
                 checkOut={search.checkOut}
                 adultCount={search.adultCount}
                 childCount={search.childCount}
                 numberOfNights={numberOfNights}
+<<<<<<< HEAD
                 hotel={hotel}
+=======
+                hotel={hotel as apiClient.HotelType}
+>>>>>>> b11a417cb1a310f08142f4eaa10d3e290d64efbf
             />
             {currentUser && <BookingForm currentUser={currentUser} />}
         </div>
