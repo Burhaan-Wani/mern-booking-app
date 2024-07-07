@@ -22,6 +22,7 @@ export default function BookingDetailsSummary({
             <div className="border-b py-2">
                 Location:
                 <div className="font-bold">{`${hotel?.name}, ${hotel?.city}, ${hotel?.country}`}</div>
+                <div className="font-bold">{`${hotel.name}, ${hotel.city}, ${hotel.country}`}</div>
             </div>
             <div className="flex justify-between">
                 <div className="">
