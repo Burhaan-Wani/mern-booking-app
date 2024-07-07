@@ -1,9 +1,11 @@
 import express from "express";
 import {
+    createBooking,
     createHotel,
     getHotel,
     getHotels,
     hotel,
+    stripePaymentIntent,
     updateHotel,
 } from "../controllers/hotelControllers";
 import { upload } from "../middlewares/multer";
@@ -38,6 +40,13 @@ router.post(
     createHotel
 );
 
+router.post(
+    "/:hotelId/bookings/payment-intent",
+    verifyToken,
+    stripePaymentIntent
+);
+
+router.post("/:hotelId/bookings", verifyToken, createBooking);
 router.get("/detail/:hotelId", hotel);
 router.get("/", verifyToken, getHotels);
 router.get("/:hotelId", verifyToken, getHotel);
