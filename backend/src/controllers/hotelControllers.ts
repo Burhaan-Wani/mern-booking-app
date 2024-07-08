@@ -6,9 +6,12 @@ import { v2 as cloudinary } from "cloudinary";
 import Hotel from "../models/hotel.model";
 import { BookingType, HotelType } from "../utils/types";
 import AppError from "../utils/appError";
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string);
 
+console.log(process.env.STRIPE_API_KEY);
 // createHotel
 export const createHotel = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
