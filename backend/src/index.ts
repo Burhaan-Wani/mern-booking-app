@@ -9,6 +9,8 @@ import connectDB from "./db//connectDB";
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import hotelRoutes from "./routes/hotel.routes";
+import bookingRoutes from "./routes/myBooking.routes";
+
 import { AppError } from "./utils/types";
 
 dotenv.config({
@@ -40,6 +42,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/hotels", hotelRoutes);
+app.use("/api/v1/my-bookings", bookingRoutes);
 
 app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
