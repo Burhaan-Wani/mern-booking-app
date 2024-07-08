@@ -11,7 +11,6 @@ dotenv.config({ path: "./.env" });
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string);
 
-console.log(process.env.STRIPE_API_KEY);
 // createHotel
 export const createHotel = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {

@@ -29,7 +29,6 @@ export default function Booking() {
             ),
         enabled: !!hotelId && numberOfNights > 0,
     });
-    console.log(paymentIntentData);
     const { data: hotel } = useQuery({
         queryKey: ["hotelbyId"],
         queryFn: () => apiClient.singleHotelById(hotelId as string),
