@@ -197,6 +197,16 @@ export const createBooking = catchAsync(
     }
 );
 
+export const getAllHotels = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const hotels = await Hotel.find().sort("-lastUpdated");
+        if (!hotels) {
+            return next(new AppError("Error fetching hotels", 500));
+        }
+        res.status(200).json(hotels);
+    }
+);
+
 // upload Images to cloudinary
 async function uploadImages(imageFiles: Express.Multer.File[]) {
     const uploadPromises = imageFiles.map(async (image) => {

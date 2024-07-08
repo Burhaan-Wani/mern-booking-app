@@ -2,6 +2,7 @@ import express from "express";
 import {
     createBooking,
     createHotel,
+    getAllHotels,
     getHotel,
     getHotels,
     hotel,
@@ -49,6 +50,7 @@ router.post(
 router.post("/:hotelId/bookings", verifyToken, createBooking);
 router.get("/detail/:hotelId", hotel);
 router.get("/", verifyToken, getHotels);
+router.get("/all", getAllHotels);
 router.get("/:hotelId", verifyToken, getHotel);
 router.put("/:hotelId", verifyToken, upload.array("imageFiles"), updateHotel);
 
